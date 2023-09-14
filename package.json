@@ -13,7 +13,7 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "native": "cd apps/expo && yarn start",
+    "native": "cd apps/native && yarn start",
     "web": "cd apps/next && yarn next"
   },
   "packageManager": "yarn@3.4.1"
