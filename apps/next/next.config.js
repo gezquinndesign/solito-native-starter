@@ -1,7 +1,25 @@
-const { withExpo } = require('@expo/next-adapter')
+const webpack = require('webpack')
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
+  webpack: (config, env) => {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      // Transform all direct `react-native` imports to `react-native-web`
+      'react-native$': 'react-native-web',
+    }
+    config.resolve.extensions = [
+      '.web.js',
+      '.web.jsx',
+      '.web.ts',
+      '.web.tsx',
+      ...config.resolve.extensions,
+    ]
+    config.plugins.push(
+      new webpack.DefinePlugin({ __DEV__: env !== 'production' })
+    )
+    return config
+  },
   // reanimated (and thus, Moti) doesn't work with strict mode currently...
   // https://github.com/nandorojo/moti/issues/224
   // https://github.com/necolas/react-native-web/pull/2330
@@ -21,5 +39,3 @@ const nextConfig = {
     'react-native-gesture-handler',
   ],
 }
-
-module.exports = withExpo(nextConfig)

@@ -6,5 +6,5 @@
       "app/*": ["./packages/app/*"]
     }
   },
-  "extends": "expo/tsconfig.base"
+  "extends": "@tsconfig/react-native/tsconfig.json"
 }
